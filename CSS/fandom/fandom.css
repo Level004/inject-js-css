@@ -1,0 +1,9 @@
+[class="top-ads-container"],
+.page__right-rail,
+.global-navigation {
+    display: none;
+}
+
+.main-container {
+    margin: 0 !important;
+}
