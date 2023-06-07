@@ -1,111 +1,170 @@
-[{
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "\t\tdocument.querySelector(\"#circuit_board\").src = \"https://cdn.discordapp.com/attachments/778713288099889154/984799051289608252/unknown.png?size=4096\";\n\t\tdocument.querySelector(\"#circuit_cover\").remove();\n\t\tdocument.querySelector(\"#greenlines\").remove();\n\t\tdocument.querySelector(\"#db_logo\").remove();\n\t\tdocument.querySelector(\"#circuit_board\").style.left = \"-150px\";\n\t\tdocument.querySelector(\"#circuit_board\").style.width = \"1300px\";\n\t\tdocument.querySelector(\"#circuit_board\").style.opacity = \"2\";\n\t\tdocument.querySelector(\"#yugioh_logo\").remove();\n\n\t\tconst text = 'Level 4';\n\t\tconst avatar = document.getElementById('avatar1');\n\t\tconst lp = document.getElementById('lifepoints1');\n\t\tsetInterval(function() {\n\t\t\t//name color\n\t\t\tfor (const span of document.querySelectorAll('span')) {\n\t\t\t\tif (!span.classList.contains(\"nameColor\")) {\n\t\t\t\t\tif (span.classList.contains(\"username_txt\")) {\n\t\t\t\t\t\tif (span.textContent.includes(text)) {\n\t\t\t\t\t\t\tspan.classList.add(\"nameColor\");\n\t\t\t\t\t\t\tspan.textContent = \"Guilliano\";\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t//borders and lp bar\n\t\t\tlet span = avatar.getElementsByClassName('username_txt selectable');\n\t\t\tlet result = span[0].textContent.includes(text);\n\t\t\tif (result === true) {\n\t\t\t\t$(\"#avatar1\").css(\"background\", \"linear-gradient(360deg, #ffb694, #ffffff)\");\n\t\t\t\t$(\"#lifepoints1\").find(\".life_bar\").css(\"background\", \"linear-gradient(360deg, #ffb694, #ffffff)\");\n\t\t\t} else {\n\t\t\t\tavatar.removeAttribute(\"style\");\n\t\t\t\tlp.querySelector('.life_bar').removeAttribute(\"style\");\n\t\t\t}\n\n\t\t}, 300);"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "www\\.duelingbook\\.com",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "const previewclass = '.preview .cardfront~#preview_txt .os-content.selectable.os-textarea';\nconst link = \"https://images.duelingbook.com/tokens/7.jpg\";\nsetInterval(function() {\n        //mukuro token\n        let card = document.querySelector('.preview .pic');\n        let pic = card.getAttribute('src');\n        if (pic === link) {\n            if (document.querySelector(previewclass) !== null) {\n                document.querySelector(previewclass).classList.add(\"mukuro\");\n            }\n        } else {\n            document.querySelector(previewclass).classList.remove(\"mukuro\");\n        }\n\n    }, 300);"
-	},
-	"enabled": false,
-	"onLoad": true,
-	"selector": "www\\.duelingbook\\.com",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "function setSound() {\n    const okSoundUrl = \"https://custom-db.yugioh.app/assets/pollo.mp3\";\n    const chatIncoming = 'https://cdn.discordapp.com/attachments/778713288099889154/1005448571291697182/PolAnoNe.mp3';\n    (window.unsafeWindow || window).Ok = okSoundUrl;\n    (window.unsafeWindow || window).ChatInbound = chatIncoming;\n}\nsetSound();"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "www\\.duelingbook\\.com",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "const deckListg = document.getElementById('decklist');\nsetInterval(function() {\nlet cardFrontConte = document.querySelectorAll(\".cardfront.unselectable\");\nlet selectSpright = deckListg.querySelector(\".combobox.proxy.unselectable\").textContent;\nlet optiono = selectSpright.includes('Brave Splight');\nlet option2 = selectSpright.includes('Ghoti');\n    if (optiono === true) {\n        for (const cardInfo of cardFrontConte) {\n            cardInfo.classList.add('splight');\n        }\n    } else {\n        for (const cardInf of cardFrontConte) {\n            cardInf.classList.remove('splight');\n        }\n    }\n\n    if (option2 === true) {\n    for (const cardInfo of cardFrontConte) {\n        cardInfo.classList.add('ghoti');\n    }\n    } else {\n        for (const cardInf of cardFrontConte) {\n            cardInf.classList.remove('ghoti');\n        }\n    }\n}, 2000);"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "www\\.duelingbook\\.com",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "    var blocked_by_arr = [];\nblocked_arr.forEach(function (username) {\n    if (!blocked_by_you_arr.includes(username)) {\n        blocked_by_arr.push(username);\n    }\n});\nconsole.log(blocked_by_arr);"
-	},
-	"enabled": false,
-	"onLoad": false,
-	"selector": "www\\.duelingbook\\.com",
-	"topFrameOnly": false
-}, {
-	"code": {
-		"css": "[class=\"top-ads-container\"],\n.page__right-rail,\n.global-navigation {\n    display: none;\n}\n\n.main-container {\n    margin: 0 !important;\n}",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "// Type your JavaScript code here.\n\n"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "fandom\\.com",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<button id=\"button\" onclick=\"randomBg()\">Verander Kleur!!!</button>",
-		"js": "const sideBar = document.getElementsByClassName(\"navigation navigation--student\");\nconst topBar = document.getElementsByClassName(\"header-toolbar\");\nfunction randomBg(){\n\tconst randomColor = Math.floor(Math.random()*16777215).toString(16);\n\tsideBar[0].style.backgroundColor = \"#\" + randomColor;\n\ttopBar[0].style.backgroundColor = \"#\" + randomColor;\n}"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "tilburg-student\\.educus\\.nl",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "const ad1 = document.getElementById('footer-banner-desktop');\nconst ad2 = document.getElementById('header-banner-desktop');\nad1.remove();\nad2.remove();\n\nsetInterval(function() {\n\tconst deckList = document.getElementsByClassName('deck-list');\n    const decks = deckList[0].querySelectorAll('.deck-layout-single-flex');\n    for (const ribbon of decks) {\n\t\tlet ribbonSelect = ribbon.querySelector('.ribbon-deck-text');\n\t\tif (ribbonSelect.textContent === \"Goat Format Decks\" || ribbonSelect.textContent === \"Anime Decks\") {\n\t\t\tdeckList[0].removeChild(ribbon);\n\t\t}\n\t}\n}, 1000);"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "ygoprodeck\\.com",
-	"topFrameOnly": true
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "setInterval(function() {\n\tlet selectBattle = document.querySelector('.ps-room.ps-room-opaque');\n\tconst iframe = document.createElement('iframe');\n\tiframe.setAttribute('id', 'sidebox');\n    iframe.src = \"https://calc.pokemonshowdown.com/\";\n\tif (document.querySelector('.ps-room.ps-room-opaque #sidebox') == null) {\n\t\tselectBattle.appendChild(iframe);\n\t}\n    \n}, 2000);"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "play\\.pokemonshowdown\\.com",
-	"topFrameOnly": false
-}, {
-	"code": {
-		"css": "/* Type your CSS code here. */\n\n",
-		"files": [],
-		"html": "<!-- Type your HTML code here. -->\n\n",
-		"js": "const removeStyling = document.getElementById(\"dark-mode-custom-style\");\nremoveStyling.remove();"
-	},
-	"enabled": true,
-	"onLoad": true,
-	"selector": "play\\.pokemonshowdown\\.com",
-	"topFrameOnly": true
-}]
+[
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "\t\tdocument.querySelector(\"#circuit_board\").src = \"https://cdn.discordapp.com/attachments/778713288099889154/984799051289608252/unknown.png?size=4096\";\n\t\tdocument.querySelector(\"#circuit_cover\").remove();\n\t\tdocument.querySelector(\"#greenlines\").remove();\n\t\tdocument.querySelector(\"#db_logo\").remove();\n\t\tdocument.querySelector(\"#circuit_board\").style.left = \"-150px\";\n\t\tdocument.querySelector(\"#circuit_board\").style.width = \"1300px\";\n\t\tdocument.querySelector(\"#circuit_board\").style.opacity = \"2\";\n\t\tdocument.querySelector(\"#yugioh_logo\").remove();\n\n\t\tconst text = 'Level 4';\n\t\tconst avatar = document.getElementById('avatar1');\n\t\tconst lp = document.getElementById('lifepoints1');\n\t\tsetInterval(function() {\n\t\t\t//name color\n\t\t\tfor (const span of document.querySelectorAll('span')) {\n\t\t\t\tif (!span.classList.contains(\"nameColor\")) {\n\t\t\t\t\tif (span.classList.contains(\"username_txt\")) {\n\t\t\t\t\t\tif (span.textContent.includes(text)) {\n\t\t\t\t\t\t\tspan.classList.add(\"nameColor\");\n\t\t\t\t\t\t\tspan.textContent = \"Guilliano\";\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t//borders and lp bar\n\t\t\tlet span = avatar.getElementsByClassName('username_txt selectable');\n\t\t\tlet result = span[0].textContent.includes(text);\n\t\t\tif (result === true) {\n\t\t\t\t$(\"#avatar1\").css(\"background\", \"linear-gradient(360deg, #ffb694, #ffffff)\");\n\t\t\t\t$(\"#lifepoints1\").find(\".life_bar\").css(\"background\", \"linear-gradient(360deg, #ffb694, #ffffff)\");\n\t\t\t} else {\n\t\t\t\tavatar.removeAttribute(\"style\");\n\t\t\t\tlp.querySelector('.life_bar').removeAttribute(\"style\");\n\t\t\t}\n\n\t\t}, 300);"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "www\\.duelingbook\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "const previewclass = '.preview .cardfront~#preview_txt .os-content.selectable.os-textarea';\nconst link = \"https://images.duelingbook.com/tokens/7.jpg\";\nsetInterval(function() {\n        //mukuro token\n        let card = document.querySelector('.preview .pic');\n        let pic = card.getAttribute('src');\n        if (pic === link) {\n            if (document.querySelector(previewclass) !== null) {\n                document.querySelector(previewclass).classList.add(\"mukuro\");\n            }\n        } else {\n            document.querySelector(previewclass).classList.remove(\"mukuro\");\n        }\n\n    }, 300);"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "www\\.duelingbook\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "function setSound() {\n    const okSoundUrl = \"https://custom-db.yugioh.app/assets/pollo.mp3\";\n    const chatIncoming = 'https://cdn.discordapp.com/attachments/778713288099889154/1005448571291697182/PolAnoNe.mp3';\n    (window.unsafeWindow || window).Ok = okSoundUrl;\n    (window.unsafeWindow || window).ChatInbound = chatIncoming;\n}\nsetSound();"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "www\\.duelingbook\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "    var blocked_by_arr = [];\nblocked_arr.forEach(function (username) {\n    if (!blocked_by_you_arr.includes(username)) {\n        blocked_by_arr.push(username);\n    }\n});\nconsole.log(blocked_by_arr);"
+    },
+    "enabled": true,
+    "onLoad": false,
+    "selector": "www\\.duelingbook\\.com",
+    "topFrameOnly": false
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "let loggedPics = {};\n\nfunction changeImageSrc() {\n  // Find all the img tags on the page that match the specified URL pattern\n  let donoPic = document.querySelectorAll('img[src^=\"https://images.duelingbook.com/profile-pics/\"]');\n\n  // Loop through each image\n  for (let image of donoPic) {\n    // Check if the image has already been logged\n    if (image.src in loggedPics) {\n      // Use the existing picCode for this image\n      var picCode = loggedPics[image.src];\n    } else {\n      // Generate a random number between 1 and 14169\n      var picCode = Math.floor(Math.random() * 14169) + 1;\n\n      // Log the picCode for this image\n      loggedPics[image.src] = picCode;\n    }\n\n    // Replace the image src with the new URL\n    image.src = `https://images.duelingbook.com/low-res/${picCode}.jpg`;\n  }\n}\n\n// Call the function once to change the image src initially\nchangeImageSrc();\n\n// Call the function every second to change the image src again\nsetInterval(changeImageSrc, 1000);\n"
+    },
+    "enabled": true,
+    "onLoad": false,
+    "selector": "www\\.duelingbook\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "[class=\"top-ads-container\"],\n.page__right-rail,\n.global-navigation {\n    display: none;\n}\n\n.main-container {\n    margin: 0 !important;\n}",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "// Type your JavaScript code here.\n\n"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "fandom\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<button id=\"button\" onclick=\"randomBg()\">Verander Kleur!!!</button>",
+      "js": "const sideBar = document.getElementsByClassName(\"navigation navigation--student\");\nconst topBar = document.getElementsByClassName(\"header-toolbar\");\nfunction randomBg(){\n\tconst randomColor = Math.floor(Math.random()*16777215).toString(16);\n\tsideBar[0].style.backgroundColor = \"#\" + randomColor;\n\ttopBar[0].style.backgroundColor = \"#\" + randomColor;\n}"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "tilburg-student\\.educus\\.nl",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "// const ad1 = document.getElementById('footer-banner-desktop');\n// const ad2 = document.getElementById('header-banner-desktop');\n// ad1.remove();\n// ad2.remove();\n\nsetInterval(function() {\n\tconst deckList = document.getElementsByClassName('deck-list');\n    const decks = deckList[0].querySelectorAll('.deck-layout-single-flex');\n    for (const ribbon of decks) {\n\t\tlet ribbonSelect = ribbon.querySelector('.ribbon-deck-text');\n\t\tif (ribbonSelect.textContent === \"Goat Format Decks\" || ribbonSelect.textContent === \"Anime Decks\" || ribbonSelect.textContent === \"Domain Format Decks\" || ribbonSelect.textContent === 'Trinity Format Decks') {\n\t\t\tdeckList[0].removeChild(ribbon);\n\t\t}\n\t}\n}, 1000);"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "ygoprodeck\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "setInterval(function() {\n\tlet selectBattle = document.querySelector('.ps-room.ps-room-opaque');\n\tconst iframe = document.createElement('iframe');\n\tiframe.setAttribute('id', 'sidebox');\n    iframe.src = \"https://calc.pokemonshowdown.com/\";\n\tif (document.querySelector('.ps-room.ps-room-opaque #sidebox') == null) {\n\t\tselectBattle.appendChild(iframe);\n\t}\n    \n}, 2000);"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "play\\.pokemonshowdown\\.com",
+    "topFrameOnly": false
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "const removeStyling = document.getElementById(\"dark-mode-custom-style\");\nremoveStyling.remove();"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "play\\.pokemonshowdown\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "const sidebar = document.querySelector('.paimon-bg + div');\nconst homeButton = sidebar.querySelector('.relative.py-2 + a');\nconst unlockedChars = [\n    'alhaitham',\n    'amber',\n    'baizhu',\n    'barbara',\n    'beidou',\n    'bennett',\n    'candace',\n    'collei',\n    'diluc',\n    'diona',\n    'dori',\n    'faruzan',\n    'fischl',\n    'gorou',\n    'Jean',\n    'kaeya',\n    'kamisato_ayato',\n    'kaveh',\n    'keqing',\n    'kujou_sara',\n    'kuki_shinobu',\n    'layla',\n    'lisa',\n    'mika',\n    'mona',\n    'nahida',\n    'ningguang',\n    'noelle',\n    'qiqi',\n    'raiden_shogun',\n    'razor',\n    'rosaria',\n    'sayu',\n    'shenhe',\n    'heizou',\n    'sucrose',\n    'thomna',\n    'wanderer',\n    'traveler',\n    'xiangling',\n    'xingqiu',\n    'xinyan',\n    'yanfei',\n    'yaoyao',\n    'yelan',\n];\n\nfunction lockCharacters() {\n    let farmToday = document.querySelector(\".__grid--masonry .bg-item.rounded-xl.p-4.flex.flex-col > table\");\n    let allIcons = farmToday.querySelectorAll('tr td:last-child a img:first-child');\n    for (const char of allIcons) {\n        const contains = unlockedChars.some(element => {\n            return !!char.getAttribute('alt').includes(element);\n        });\n        if (contains === false) {\n            char.classList.add(\"locked\");\n        }\n    }\n}\n\nlockCharacters();\n\nhomeButton.addEventListener(\"click\", ()=> {\n    lockCharacters();\n});"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "paimon\\.moe",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "*,*::before, *::after {\n    color: white;\n}\n\nspan {\n    color: white !important;\n}\n\ndiv {\n    background-color: black !important;\n}",
+      "files": [],
+      "html": "<!-- Type your HTML code here. -->\n\n",
+      "js": "// Type your JavaScript code here.\n\n"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "17track\\.net",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "#noImage {\n    position: absolute;\n    top: 19px;\n    right: 0;\n    z-index: 999999;\n    background: none;\n    border: none;\n    font-family: Roboto, Noto Naskh Arabic UI, Arial, sans-serif;\n    font-size: 20px;\n    font-weight: 500;\n    color: rgba(255, 255, 255, 0.5);\n}",
+      "files": [],
+      "html": "<button id=\"noImage\" onclick=\"noImage()\">Remove Image</button>\n",
+      "js": "const css = '#main-panel { display: none !important; } #player-page>div>div.side-panel.modular.style-scope.ytmusic-player-page, #player-page>div>div.side-panel.modular.style-scope.ytmusic-player-page>tp-yt-paper-tabs, #tab-renderer { margin: 0 !important; width: 100vw !important; }';\nconst styleElement = document.createElement('style');\nconst head = document.head || document.getElementsByTagName('head')[0];\n\nstyleElement.setAttribute('id', 'noImageStyle')\nstyleElement.innerHTML = css;\n\nfunction noImage() {\n    const noImageButon = document.getElementById('noImage');\n    const noImageStyle = document.getElementById('noImageStyle');\n    if (noImageStyle) {\n        noImageButon.innerText = \"Remove Image\";\n        noImageStyle.remove();\n    } else {\n        noImageButon.innerText = \"Restore Image\";\n        head.appendChild(styleElement);\n    }\n}\n\n"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "music\\.youtube\\.com",
+    "topFrameOnly": true
+  },
+  {
+    "code": {
+      "css": "/* Type your CSS code here. */\n\n",
+      "files": [],
+      "html": "",
+      "js": "const playerBarSong = document.querySelector(\"#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar\");\n\nlet URL = window.location.href;\nlet p = document.createElement(\"p\");\n\nfunction checkCondition() {\n    let nextSong = document.querySelector(\"#contents > ytmusic-player-queue-item[selected]\").nextSibling;\n    let nextSongName = nextSong.querySelector('.song-title.style-scope.ytmusic-player-queue-item').textContent;\n    let currentSong = document.querySelector(\"#contents > ytmusic-player-queue-item[selected] .song-title.style-scope.ytmusic-player-queue-item\").textContent;\n\n    if (!document.getElementById('nextSongId')) {\n        p.textContent = \"Next song: \" + nextSongName;\n        p.setAttribute(\"id\", \"nextSongId\");\n        playerBarSong.appendChild(p);\n    }\n    \n    if (URL !== window.location.href || document.getElementById('nextSongId').textContent.includes(currentSong)) {\n        URL = window.location.href;\n        nextSong = document.querySelector(\"#contents > ytmusic-player-queue-item[selected]\").nextSibling;\n        nextSongName = nextSong.querySelector('.song-title.style-scope.ytmusic-player-queue-item').textContent;\n        currentSong = document.querySelector(\"#contents > ytmusic-player-queue-item[selected] .song-title.style-scope.ytmusic-player-queue-item\").textContent;\n        document.getElementById('nextSongId').textContent = \"Next song: \" + nextSongName;\n    }\n}\n\nconst intervalId = setInterval(checkCondition, 100);\n"
+    },
+    "enabled": true,
+    "onLoad": true,
+    "selector": "music\\.youtube\\.com",
+    "topFrameOnly": true
+  }
+]
