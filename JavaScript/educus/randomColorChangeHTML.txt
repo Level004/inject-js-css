@@ -1,0 +1,3 @@
+this goes into the HTML section
+
+<button id="button" onclick="randomBg()">Verander Kleur!!!</button>

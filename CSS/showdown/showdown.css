@@ -1,0 +1,25 @@
+.battle-log {
+    left: 77vw !important;
+}
+
+.userlist-minimized {
+    display: none;
+}
+
+.ps-room .battle,
+.ps-room .battle-controls {
+    left: 27vw;
+}
+
+.ps-room .battle-log-add {
+    left: 27vw;
+}
+
+#sidebox {
+    height: 98.8%;
+    width: 27vw;
+}
+
+iframe {
+    border: none;
+}

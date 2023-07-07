@@ -1,0 +1,154 @@
+:root {
+    --w: 250px;
+    --c: 26px;
+}
+
+* {
+    background: #444 !important;
+    color: #ddd !important;
+    border-radius: 0 !important;
+}
+
+.info-group.top+div .at,
+.info-group.top+div .df,
+.info-group.top+div .sa,
+.info-group.top+div .sd {
+    position: absolute;
+}
+
+.info-group.top+div .sd {
+    right: -13px;
+}
+
+.info-group.top+div .sa {
+    left: 0;
+}
+
+.info-group.top+div .df {
+    top: 106px;
+    right: -13px;
+}
+
+.info-group.top+div .at {
+    top: 106px;
+    left: 0;
+}
+
+div[aria-label="Pokémon 1"] {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+div[aria-label="Pokémon 2"] {
+    position: absolute;
+    left: 0;
+    top: 289px;
+    z-index: 2;
+}
+
+div[aria-label*="Pokémon"] {
+    max-width: var(--w) !important;
+    margin-top: 66px;
+}
+
+.poke-info {
+    width: var(--w);
+    height: 120px;
+    border: none !important;
+    padding-right: 0 !important;
+}
+
+.select2-chosen {
+    max-width: 194px !important;
+}
+
+[aria-labelledby="resultHeaderR"] {
+    position: absolute;
+    left: 24px;
+    top: 125px;
+}
+
+[aria-labelledby*="resultHeader"] div {
+    max-height: 25px;
+}
+
+[aria-labelledby*="resultHeader"] {
+    width: 100% !important;
+}
+
+hr {
+    border: none !important;
+}
+
+[title="Select the current terrain."] {
+    position: absolute;
+    width: 226px;
+    bottom: 0;
+    left: calc(40px + var(--c));
+}
+
+[aria-labelledby="selectWeatherInstruction"] {
+    position: absolute;
+    bottom: 45px;
+    left: calc(4px + var(--c));
+}
+
+.field tr:nth-child(7) {
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    width: 0;
+    left: 312px;
+    top: 231px;
+    z-index: 3;
+}
+
+.field tr:nth-child(7) td:last-child {
+    padding-top: 86px;
+}
+
+.field tr:nth-child(7) .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.right [for="reflectR"] {
+    order: -1 !important;
+}
+
+[for*="reflect"] {
+    width: 96%;
+}
+
+#importedSetsOptions {
+    font-size: 0;
+}
+
+::-webkit-scrollbar,
+.header,
+div[aria-label="Settings"],
+div[aria-label="Calculation results"],
+#importedSetsOptions button,
+.info-group.top,
+.info-group.top+div thead,
+.info-group.top+div .hp,
+.info-group.top+div .at td:not(td:last-child),
+.info-group.top+div .df td:not(td:last-child),
+.info-group.top+div .sa td:not(td:last-child),
+.info-group.top+div .sd td:not(td:last-child),
+.info-group.top+div .sp,
+.info-group.info-selectors,
+.info-group.info-selectors+div,
+.poke-info div[class*="move"],
+.credits,
+.result-move-header,
+[title="Select the battle format."],
+[title="Select the current weather condition."]+div,
+[title="Is gravity in effect?"],
+.field tr:not(tr:nth-child(7)),
+[aria-label="Import team"] {
+    display: none !important;
+}
