@@ -1,0 +1,17 @@
+#button {
+    z-index: 255;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+nav.navigation:after,
+nav.navigation--student {
+    background-color: transparent;
+    background-image: none;
+}
+
+nav.navigation,
+.header-toolbar {
+    background-color: #0b1f8f;
+}
