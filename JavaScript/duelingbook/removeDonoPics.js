@@ -2,7 +2,7 @@ let loggedPics = {};
 
 function changeImageSrc() {
     // Find all the img tags on the page that match the specified URL pattern
-    let donoPic = document.querySelectorAll('img[src^="https://images.duelingbook.com/profile-pics/"]');
+    let donoPic = document.querySelectorAll('img[src*="/profile-pics/"]');
 
     // Loop through each image
     for (let image of donoPic) {
