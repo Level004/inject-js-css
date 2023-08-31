@@ -1,5 +1,4 @@
-const main = document.querySelector('.l-full');
-const lessonText = main.querySelectorAll('.agenda-class');
+const lessonText = document.querySelector('.l-full').querySelectorAll('.agenda-class');
 
 for (const text of lessonText) {
     const regex = /(?<=-)[^-]+(?=-)/;
@@ -13,14 +12,29 @@ for (const text of lessonText) {
             case "NED":
                 text.textContent = "Nederlands";
                 break;
-            case "WEBTech":
+            case "WEBT":
                 text.textContent = "Web Technologie";
                 break;
             case "ION":
                 text.textContent = "Inspelen Op Innovatie";
                 break;
-            case "COACH":
+            case "COA":
                 text.textContent = "Coach";
+                break;
+            case "PJ":
+                text.textContent = "Projecten";
+                break;
+            case "F@S":
+                text.textContent = "Fit@School";
+                break;
+            case "ONTW":
+                text.textContent = "Ontwerp";
+                break;
+            case "PORTF":
+                text.textContent = "Digitale Portfolio";
+                break;
+            case "DATAb":
+                text.textContent = "Database ontwerp";
                 break;
             default:
                 text.textContent = match[0];
