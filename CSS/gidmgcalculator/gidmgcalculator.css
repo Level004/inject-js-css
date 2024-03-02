@@ -32,10 +32,21 @@ div:has(div > .minimaxButton) {
     justify-content: space-evenly;
 }
 
-._card_177jp_17 {
+._card_1a4r4_11 {
     max-width: 100vw;
     min-width: 25%;
     width: 100%;
+}
+
+._card_1a4r4_11:last-child {
+    max-width: 100vw !important;
+    min-width: 25%;
+    width: 100% !important;
+}
+
+[class="pb-1 flex items-center overflow-auto _calculator_1a4r4_1"] {
+    max-width: 100% !important;
+    width: 100vw !important;
 }
 
 .space-x-2>:not([hidden])~:not([hidden]) {

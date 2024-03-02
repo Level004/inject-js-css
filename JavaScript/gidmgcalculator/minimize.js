@@ -6,7 +6,7 @@ function handleMinimizeAndMaximize() {
     this.innerText = buttonText;
 }
 
-const panelsContainer = document.querySelector('div.pb-1.flex.items-center.overflow-auto._calculator_177jp_1 > div');
+const panelsContainer = document.querySelector('#root > div > div.h-full.flex-center.relative > div');
 
 if (panelsContainer) {
     const panels = panelsContainer.childNodes;
