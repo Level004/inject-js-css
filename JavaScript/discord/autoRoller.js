@@ -11,22 +11,22 @@ const wishedCharacters = [
     "Fabia Sheen",
     "Masquerade",
     "Omaru Polka",
-    "Vanitas (KH)",
     "Emilie",
     "Green Heart",
     "Komaru Naegi",
     "Celestia Ludenberg",
     "Yelan",
     "Tifa Lockhart",
-    "Zygarde",
     "Aigis",
     "Chie Satonaka",
     "Alhaitham",
     "Aventurine",
+    "Venti",
+    "Yuuichi Tsurugi",
+    "Shuu",
 ];
 
 const extraCharacters = [
-    "Shuu",
     "Grimnir",
     "Golbez",
     "Dan Heng",
@@ -35,11 +35,9 @@ const extraCharacters = [
     "Anaxa",
     "Dr. Ratio",
     "Yanqing",
-    "Mydei",
     "Silverbell Cookie",
     "Dark Pit",
     "Ratchet",
-    "Clank",
     "Dante",
     "Vergil",
     "Nero (DMC)",
@@ -47,13 +45,10 @@ const extraCharacters = [
     "Fidio Aldena",
     "Gamma (IE)",
     "Hakuryuu",
-    "Hiroto Kiyama",
-    "Ichirouta Kazemaru",
     "Jirou Sakuma",
     "Osamu Saginuma",
     "Yuuki Tachimukai",
     "Zanakurou Ichikawa",
-    "Yuuichi Tsurugi",
     "Munemasa Ibuki",
     "Kyousuke Tsurugi",
     "Takuto Shindou",
@@ -61,10 +56,8 @@ const extraCharacters = [
     "Mamoru Endou",
     "Shuuya Gouenji",
     "Taiyou Amemiya",
-    "Venti",
     "Kaeya",
     "Bennett",
-    "Dainsleif",
     "Thoma",
     "Razor",
     "Xingqiu",
@@ -76,13 +69,10 @@ const extraCharacters = [
     "Neku Sakuraba",
     "Sephiroth",
     "Gonta Gokuhara",
-    "Hajime Hinata",
     "Izuru Kamukura",
     "K1-B0",
     "Kaito Momota",
     "Makoto Naegi",
-    "Nagito Komaeda",
-    "Yuta Asahina"
 ];
 
 let claimAvailable = true;
@@ -189,23 +179,28 @@ function rollUptime(resetMinute) {
     }
 }
 
-function rollCharacter() {
+async function rollCharacter() {
     if (onCooldown && rolls > 0) {
+        const box = document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017');
+        
         if (!document.querySelector('.buttonWrapper__24af7.buttonChild_aa63ab.activeButtonChild_aa63ab')) {
-            pasteIntoElement(document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017'));
-
             onCooldown = false;
-        }
 
-        //wait 5 seconds before clicking on send
-        setTimeout(function() {
+            const success = await pasteIntoElement(box);
+            
+            if (!success) return;
+
+            await new Promise(res => setTimeout(res, 5000)); // Wait before sending
+
+            // Check again before sending
+            if (!claimAvailable && rolls === 0) return;
+
             document.querySelector('button[aria-label="Send Message"]').click();
-
-            rolls = rolls - 1;
-
+            
+            rolls -= 1;
+            
             onCooldown = true;
-
-        }, 5000);
+        }
     }
 }
 
@@ -265,7 +260,7 @@ function loopThroughRolls(wishedCharacters, extraCharacters) {
     }
 
     if (rolls > 0) {
-        rollCharacter();
+	rollCharacter().catch(console.error);
     }
 }
 
