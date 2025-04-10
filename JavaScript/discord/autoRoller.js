@@ -68,7 +68,6 @@ const extraCharacters = [
     "Terra",
     "Neku Sakuraba",
     "Sephiroth",
-    "Gonta Gokuhara",
     "Izuru Kamukura",
     "K1-B0",
     "Kaito Momota",
@@ -80,8 +79,6 @@ let claimAvailable = true;
 const claimResetMinute = 3;
 
 const rollResetMinute = 4;
-
-let onCooldown = true;
 
 let lastRollReset = null;
 
@@ -180,29 +177,23 @@ function rollUptime(resetMinute) {
 }
 
 async function rollCharacter() {
-    if (onCooldown && rolls > 0) {
-        const box = document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017');
-        
-        if (!document.querySelector('.buttonWrapper__24af7.buttonChild_aa63ab.activeButtonChild_aa63ab')) {
-            onCooldown = false;
+    if (rolls <= 0 || !claimAvailable) return;
 
-            const success = await pasteIntoElement(box);
-            
-            if (!success) return;
+    const rollBox = document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017');
 
-            await new Promise(res => setTimeout(res, 5000)); // Wait before sending
+    if (!document.querySelector('.buttonWrapper__24af7.buttonChild_aa63ab.activeButtonChild_aa63ab')) {
+        await pasteIntoElement(rollBox);
 
-            // Check again before sending
-            if (!claimAvailable && rolls === 0) return;
+        await new Promise(res => setTimeout(res, 5000));
 
+        if (rolls > 0 && claimAvailable) {
             document.querySelector('button[aria-label="Send Message"]').click();
             
-            rolls -= 1;
-            
-            onCooldown = true;
+            rolls--;
         }
     }
 }
+
 
 function handleClaimClick(message) {
     message.querySelector('button').click();
