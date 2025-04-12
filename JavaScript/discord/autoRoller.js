@@ -7,7 +7,6 @@ const wishedCharacters = [
     "Lighter",
     "Misogi Kumagawa",
     "Baki Hanma",
-    "Ifa",
     "Fabia Sheen",
     "Masquerade",
     "Omaru Polka",
@@ -21,29 +20,22 @@ const wishedCharacters = [
     "Chie Satonaka",
     "Alhaitham",
     "Aventurine",
-    "Venti",
     "Yuuichi Tsurugi",
-    "Shuu",
+    "Dante",
+    "Vergil",
+    "Dark Pit",
+    "Ratchet",
 ];
 
 const extraCharacters = [
     "Grimnir",
     "Golbez",
-    "Dan Heng",
-    "Gallagher",
     "Misha (HSR)",
     "Anaxa",
     "Dr. Ratio",
     "Yanqing",
     "Silverbell Cookie",
-    "Dark Pit",
-    "Ratchet",
-    "Dante",
-    "Vergil",
-    "Nero (DMC)",
-    "Atsuya Fubuki",
     "Fidio Aldena",
-    "Gamma (IE)",
     "Hakuryuu",
     "Jirou Sakuma",
     "Osamu Saginuma",
@@ -51,27 +43,21 @@ const extraCharacters = [
     "Zanakurou Ichikawa",
     "Munemasa Ibuki",
     "Kyousuke Tsurugi",
-    "Takuto Shindou",
     "Zanark Avalonic",
     "Mamoru Endou",
-    "Shuuya Gouenji",
     "Taiyou Amemiya",
     "Kaeya",
     "Bennett",
-    "Thoma",
     "Razor",
     "Xingqiu",
-    "Mika (GI)",
     "Kinich",
-    "Riku",
     "Axel",
     "Terra",
-    "Neku Sakuraba",
     "Sephiroth",
     "Izuru Kamukura",
     "K1-B0",
     "Kaito Momota",
-    "Makoto Naegi",
+    "Nero (DMC)",
 ];
 
 let claimAvailable = true;
@@ -131,9 +117,9 @@ function getCurrentTime() {
 
 function claimUptime(resetMinute) {
     const hours = [1, 4, 7, 10];
-    
+
     const periods = ["AM", "PM"];
-    
+
     const claimIntervals = [];
 
     for (const hour of hours) {
@@ -146,13 +132,14 @@ function claimUptime(resetMinute) {
 
     if (claimIntervals.includes(currentTime) && lastClaimReset !== currentTime) {
         console.log("CLAIM RESET AT: " + currentTime);
-        
+
+        rolls = 0;
+
         claimAvailable = true;
-        
+
         lastClaimReset = currentTime;
     }
 }
-
 
 function rollUptime(resetMinute) {
     const rollIntervals = [];
@@ -188,12 +175,11 @@ async function rollCharacter() {
 
         if (rolls > 0 && claimAvailable) {
             document.querySelector('button[aria-label="Send Message"]').click();
-            
+
             rolls--;
         }
     }
 }
-
 
 function handleClaimClick(message) {
     message.querySelector('button').click();
@@ -211,10 +197,16 @@ function characterClaim(message, name) {
     handleClaimClick(message);
 }
 
-function kakeraClaim(message) {
+function kakeraClaim(message, name) {
     console.log('kakera claimed');
 
     handleClaimClick(message);
+
+    if (message.querySelector('.emojiContainer__75abc.emojiContainerClickable__75abc:has(img[alt$="key:"])')) {
+        const keyLevel = message.querySelector('.emojiContainer__75abc.emojiContainerClickable__75abc:has(img[alt$="key:"]) ~ strong').textContent;
+
+        console.log('new key for: ' + name + " the key level is now: " + keyLevel);
+    }
 }
 
 
@@ -224,6 +216,11 @@ function loopThroughRolls(wishedCharacters, extraCharacters) {
     rollUptime(rollResetMinute);
 
     let messages = document.querySelectorAll('.messageListItem__5126c:has(img[src*="432610292342587392"])');
+
+    //gets rid of any left over commands after a claim
+    if (!claimAvailable && document.querySelector(".applicationCommand__1464f .commandName__1464f > span")) {
+        document.querySelector('div.closeButton_e876a8[role="button"]').click();
+    }
 
     if (!claimAvailable) {
         return;
@@ -244,14 +241,14 @@ function loopThroughRolls(wishedCharacters, extraCharacters) {
                 }
 
                 if (message.querySelector('button:has([alt^="kakera"])')) {
-                    kakeraClaim(message);
+                    kakeraClaim(message, characterName.textContent);
                 }
             }
         }
     }
 
     if (rolls > 0) {
-	rollCharacter().catch(console.error);
+        rollCharacter().catch(console.error);
     }
 }
 
