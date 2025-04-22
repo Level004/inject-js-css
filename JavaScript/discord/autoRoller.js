@@ -1,10 +1,7 @@
 const wishedCharacters = [
-    "Adell",
     "Ellen Joe",
-    "Bartz Klauser",
     "Yu Tendo",
     "Ouro Kronii",
-    "Lighter",
     "Misogi Kumagawa",
     "Baki Hanma",
     "Fabia Sheen",
@@ -14,50 +11,15 @@ const wishedCharacters = [
     "Green Heart",
     "Komaru Naegi",
     "Celestia Ludenberg",
-    "Yelan",
     "Tifa Lockhart",
     "Aigis",
     "Chie Satonaka",
-    "Alhaitham",
-    "Aventurine",
-    "Yuuichi Tsurugi",
-    "Dante",
-    "Vergil",
-    "Dark Pit",
-    "Ratchet",
+    "Pit",
 ];
 
 const extraCharacters = [
-    "Grimnir",
-    "Golbez",
-    "Misha (HSR)",
-    "Anaxa",
-    "Dr. Ratio",
-    "Yanqing",
-    "Silverbell Cookie",
-    "Fidio Aldena",
-    "Hakuryuu",
-    "Jirou Sakuma",
-    "Osamu Saginuma",
-    "Yuuki Tachimukai",
-    "Zanakurou Ichikawa",
-    "Munemasa Ibuki",
-    "Kyousuke Tsurugi",
-    "Zanark Avalonic",
-    "Mamoru Endou",
-    "Taiyou Amemiya",
-    "Kaeya",
-    "Bennett",
-    "Razor",
-    "Xingqiu",
-    "Kinich",
-    "Axel",
-    "Terra",
-    "Sephiroth",
     "Izuru Kamukura",
-    "K1-B0",
     "Kaito Momota",
-    "Nero (DMC)",
 ];
 
 let claimAvailable = true;
@@ -202,7 +164,11 @@ function kakeraClaim(message, name) {
 
     handleClaimClick(message);
 
-    if (message.querySelector('.emojiContainer__75abc.emojiContainerClickable__75abc:has(img[alt$="key:"])')) {
+    if (
+        message.querySelector('.emojiContainer__75abc.emojiContainerClickable__75abc:has(img[alt$="key:"])') &&
+        message.querySelector('.executedCommandAvatar_c19a55[src*="314467927799627776"]') &&
+        message.querySelector('.embedFooterIcon__623de[src*="314467927799627776"]')
+    ) {
         const keyLevel = message.querySelector('.emojiContainer__75abc.emojiContainerClickable__75abc:has(img[alt$="key:"]) ~ strong').textContent;
 
         console.log('new key for: ' + name + " the key level is now: " + keyLevel);
