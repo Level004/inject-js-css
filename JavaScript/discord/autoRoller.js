@@ -14,7 +14,6 @@ const wishedCharacters = [
     "Tifa Lockhart",
     "Aigis",
     "Chie Satonaka",
-    "Pit",
 ];
 
 const extraCharacters = [
@@ -22,43 +21,13 @@ const extraCharacters = [
     "Kaito Momota",
 ];
 
-let claimAvailable = true;
+const maxRolls = 25;
 
 const claimResetMinute = 3;
 
-const rollResetMinute = 4;
+let claimAvailable = true;
 
-let lastRollReset = null;
-
-let lastClaimReset = null;
-
-let rolls = 25;
-
-let intervalID = setInterval(() => loopThroughRolls(wishedCharacters, extraCharacters), 500);
-
-async function pasteIntoElement(element) {
-    try {
-        const clipboardData = await navigator.clipboard.readText();
-
-        const dataTransfer = new DataTransfer();
-
-        dataTransfer.setData('text/plain', clipboardData);
-
-        const pasteEvent = new ClipboardEvent('paste', {
-            clipboardData: dataTransfer,
-            bubbles: true,
-            cancelable: true,
-        });
-
-        element.dispatchEvent(pasteEvent);
-
-        return true;
-    } catch (error) {
-        console.error("Failed to paste:", error);
-
-        return false;
-    }
-}
+let rolls = maxRolls;
 
 function getCurrentTime() {
     const now = new Date();
@@ -92,54 +61,38 @@ function claimUptime(resetMinute) {
 
     const currentTime = getCurrentTime();
 
-    if (claimIntervals.includes(currentTime) && lastClaimReset !== currentTime) {
+    rolls = maxRolls;
+
+    console.log("ROLL RESET AT: " + currentTime);
+
+    if (claimIntervals.includes(currentTime)) {
         console.log("CLAIM RESET AT: " + currentTime);
 
-        rolls = 0;
-
         claimAvailable = true;
-
-        lastClaimReset = currentTime;
     }
 }
 
-function rollUptime(resetMinute) {
-    const rollIntervals = [];
+async function pasteIntoElement(element) {
+    try {
+        const clipboardData = await navigator.clipboard.readText();
 
-    const periods = ["AM", "PM"];
+        const dataTransfer = new DataTransfer();
 
-    for (let hour = 1; hour <= 12; hour++) {
-        for (const period of periods) {
-            rollIntervals.push(`${hour}:${resetMinute.toString().padStart(2, "0")} ${period}`);
-        }
-    }
+        dataTransfer.setData('text/plain', clipboardData);
 
-    let currentTime = getCurrentTime();
+        const pasteEvent = new ClipboardEvent('paste', {
+            clipboardData: dataTransfer,
+            bubbles: true,
+            cancelable: true,
+        });
 
-    if (rollIntervals.includes(currentTime) && lastRollReset !== currentTime) {
-        console.log("ROLL RESET AT: " + currentTime);
+        element.dispatchEvent(pasteEvent);
 
-        rolls = 25;
+        return true;
+    } catch (error) {
+        console.error("Failed to paste:", error);
 
-        lastRollReset = currentTime;
-    }
-}
-
-async function rollCharacter() {
-    if (rolls <= 0 || !claimAvailable) return;
-
-    const rollBox = document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017');
-
-    if (!document.querySelector('.buttonWrapper__24af7.buttonChild_aa63ab.activeButtonChild_aa63ab')) {
-        await pasteIntoElement(rollBox);
-
-        await new Promise(res => setTimeout(res, 5000));
-
-        if (rolls > 0 && claimAvailable) {
-            document.querySelector('button[aria-label="Send Message"]').click();
-
-            rolls--;
-        }
+        return false;
     }
 }
 
@@ -160,8 +113,6 @@ function characterClaim(message, name) {
 }
 
 function kakeraClaim(message, name) {
-    console.log('kakera claimed');
-
     handleClaimClick(message);
 
     if (
@@ -175,22 +126,8 @@ function kakeraClaim(message, name) {
     }
 }
 
-
 function loopThroughRolls(wishedCharacters, extraCharacters) {
-    claimUptime(claimResetMinute);
-
-    rollUptime(rollResetMinute);
-
     let messages = document.querySelectorAll('.messageListItem__5126c:has(img[src*="432610292342587392"])');
-
-    //gets rid of any left over commands after a claim
-    if (!claimAvailable && document.querySelector(".applicationCommand__1464f .commandName__1464f > span")) {
-        document.querySelector('div.closeButton_e876a8[role="button"]').click();
-    }
-
-    if (!claimAvailable) {
-        return;
-    }
 
     for (const message of messages) {
         if (!message.classList.contains('gotClicked')) {
@@ -212,9 +149,67 @@ function loopThroughRolls(wishedCharacters, extraCharacters) {
             }
         }
     }
+}
 
-    if (rolls > 0) {
-        rollCharacter().catch(console.error);
+async function rollCharacter() {
+    if (rolls <= 0 || !claimAvailable) return;
+
+    const rollBox = document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017');
+
+    if (!document.querySelector('.buttonWrapper__24af7.buttonChild_aa63ab.activeButtonChild_aa63ab')) {
+        await pasteIntoElement(rollBox);
+
+        await new Promise(res => setTimeout(res, 300));
+
+        if (rolls > 0 && claimAvailable) {
+            document.querySelector('button[aria-label="Send Message"]').click();
+
+            rolls--;
+        }
     }
 }
 
+function scheduleNextRoll(resetMinute) {
+    const now = new Date();
+
+    const nextRoll = new Date();
+
+    const currentMinute = now.getMinutes();
+
+    nextRoll.setHours(currentMinute < resetMinute ? now.getHours() : now.getHours() + 1);
+
+    nextRoll.setMinutes(resetMinute, 0, 0);
+
+    const delay = nextRoll - now;
+
+    setTimeout(() => {
+        prepareNextRolls();
+
+        setInterval(prepareNextRolls, 60 * 60 * 1000);
+    }, delay);
+}
+
+async function startRolling() {
+    for (let count = 0; count < maxRolls; count++) {
+        await rollCharacter();
+
+        await new Promise(res => setTimeout(res, 1500));
+
+        loopThroughRolls(wishedCharacters, extraCharacters);
+
+        await new Promise(res => setTimeout(res, 1500));
+    }
+}
+
+
+function prepareNextRolls() {
+    claimUptime(claimResetMinute);
+
+    if (rolls === maxRolls && claimAvailable) {
+        startRolling();
+    }
+}
+
+startRolling();
+
+scheduleNextRoll(claimResetMinute);
