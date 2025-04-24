@@ -19,6 +19,14 @@ const wishedCharacters = [
 const extraCharacters = [
     "Izuru Kamukura",
     "Kaito Momota",
+    "Prince Vorkken",
+    "Wonder-Black",
+    "Wonder-Blue",
+    "Wonder-Green",
+    "Wonder-Pink",
+    "Wonder-Red",
+    "Wonder-White",
+    "Wonder-Yellow"
 ];
 
 const maxRolls = 25;
@@ -72,12 +80,22 @@ function claimUptime(resetMinute) {
     }
 }
 
+let clipboardData = null;
+
+async function cacheClipboardOnce() {
+    try {
+        clipboardData = await navigator.clipboard.readText();
+        
+        console.log("Clipboard data cached:", clipboardData);
+    } catch (error) {
+        console.error("Failed to read clipboard:", error);
+    }
+}
+
 async function pasteIntoElement(element) {
     try {
-        const clipboardData = await navigator.clipboard.readText();
-
         const dataTransfer = new DataTransfer();
-
+        
         dataTransfer.setData('text/plain', clipboardData);
 
         const pasteEvent = new ClipboardEvent('paste', {
@@ -87,14 +105,15 @@ async function pasteIntoElement(element) {
         });
 
         element.dispatchEvent(pasteEvent);
-
+        
         return true;
     } catch (error) {
         console.error("Failed to paste:", error);
-
+        
         return false;
     }
 }
+
 
 function handleClaimClick(message) {
     message.querySelector('button').click();
@@ -209,6 +228,8 @@ function prepareNextRolls() {
         startRolling();
     }
 }
+
+cacheClipboardOnce();
 
 startRolling();
 
