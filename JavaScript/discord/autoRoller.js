@@ -1,38 +1,15 @@
-const wishedCharacters = [
-    "Ellen Joe",
-    "Yu Tendo",
-    "Ouro Kronii",
-    "Misogi Kumagawa",
-    "Baki Hanma",
-    "Fabia Sheen",
-    "Masquerade",
-    "Omaru Polka",
-    "Emilie",
-    "Green Heart",
-    "Komaru Naegi",
-    "Celestia Ludenberg",
-    "Tifa Lockhart",
-    "Aigis",
-    "Chie Satonaka",
-];
+//config
+const wishedCharacters = ["Ellen Joe", "Ouro Kronii", "Misogi Kumagawa", "Baki Hanma", "Fabia Sheen", "Masquerade", "Omaru Polka", "Emilie", "Green Heart", "Komaru Naegi", "Celestia Ludenberg", "Tifa Lockhart", "Aigis", "Chie Satonaka",];
 
-const extraCharacters = [
-    "Izuru Kamukura",
-    "Kaito Momota",
-    "Prince Vorkken",
-    "Wonder-Black",
-    "Wonder-Blue",
-    "Wonder-Green",
-    "Wonder-Pink",
-    "Wonder-Red",
-    "Wonder-White",
-    "Wonder-Yellow"
-];
+const extraCharacters = ["Wonder-Pink",];
 
-const maxRolls = 25;
+const maxRolls = 26;
 
 const claimResetMinute = 3;
 
+const roulette = "hg";
+
+//logic
 let claimAvailable = true;
 
 let rolls = maxRolls;
@@ -80,45 +57,11 @@ function claimUptime(resetMinute) {
     }
 }
 
-let clipboardData = null;
-
-async function cacheClipboardOnce() {
-    try {
-        clipboardData = await navigator.clipboard.readText();
-        
-        console.log("Clipboard data cached:", clipboardData);
-    } catch (error) {
-        console.error("Failed to read clipboard:", error);
-    }
-}
-
-async function pasteIntoElement(element) {
-    try {
-        const dataTransfer = new DataTransfer();
-        
-        dataTransfer.setData('text/plain', clipboardData);
-
-        const pasteEvent = new ClipboardEvent('paste', {
-            clipboardData: dataTransfer,
-            bubbles: true,
-            cancelable: true,
-        });
-
-        element.dispatchEvent(pasteEvent);
-        
-        return true;
-    } catch (error) {
-        console.error("Failed to paste:", error);
-        
-        return false;
-    }
-}
-
-
 function handleClaimClick(message) {
     message.querySelector('button').click();
-
-    message.classList.add('gotClicked');
+    if (message.querySelector('button:nth-child(2)')) {
+        message.querySelector('button:nth-child(2)').click();
+    }
 }
 
 function characterClaim(message, name) {
@@ -145,26 +88,24 @@ function kakeraClaim(message, name) {
     }
 }
 
-function loopThroughRolls(wishedCharacters, extraCharacters) {
-    let messages = document.querySelectorAll('.messageListItem__5126c:has(img[src*="432610292342587392"])');
+function checkRoll(wishedCharacters, extraCharacters) {
+    const message = document.querySelector('.messageListItem__5126c:last-of-type:has(img[src*="432610292342587392"])');
 
-    for (const message of messages) {
-        if (!message.classList.contains('gotClicked')) {
-            let characterName = message.querySelector('.embedAuthorName__623de');
+    if (message) {
+        let characterName = message.querySelector('.embedAuthorName__623de');
 
-            let characterSeries = message.querySelector('.embedDescription__623de > span');
+        let characterSeries = message.querySelector('.embedDescription__623de > span');
 
-            if (characterName && characterSeries) {
-                if (
-                    wishedCharacters.some(name => characterName.textContent === name) ||
-                    extraCharacters.some(name => characterName.textContent === name)
-                ) {
-                    characterClaim(message, characterName.textContent);
-                }
+        if (characterName && characterSeries) {
+            if (
+                wishedCharacters.some(name => characterName.textContent === name) ||
+                extraCharacters.some(name => characterName.textContent === name)
+            ) {
+                characterClaim(message, characterName.textContent);
+            }
 
-                if (message.querySelector('button:has([alt^="kakera"])')) {
-                    kakeraClaim(message, characterName.textContent);
-                }
+            if (message.querySelector('button:has([alt^="kakera"])')) {
+                kakeraClaim(message, characterName.textContent);
             }
         }
     }
@@ -173,18 +114,16 @@ function loopThroughRolls(wishedCharacters, extraCharacters) {
 async function rollCharacter() {
     if (rolls <= 0 || !claimAvailable) return;
 
-    const rollBox = document.querySelector('.markup__75297.editor__1b31f.slateTextArea_ec4baf.fontSize16Padding__74017');
+    if (rolls > 0 && claimAvailable) {
+        document.querySelector('button[aria-label="Apps"]').click();
 
-    if (!document.querySelector('.buttonWrapper__24af7.buttonChild_aa63ab.activeButtonChild_aa63ab')) {
-        await pasteIntoElement(rollBox);
+        await new Promise(res => setTimeout(res, 500));
 
+        document.querySelector('div[aria-label^="Mudae I"]').click();
         await new Promise(res => setTimeout(res, 300));
 
-        if (rolls > 0 && claimAvailable) {
-            document.querySelector('button[aria-label="Send Message"]').click();
-
-            rolls--;
-        }
+        document.querySelector(`button[aria-label$=${CSS.escape(roulette)}]`).click();;
+        rolls--;
     }
 }
 
@@ -212,14 +151,13 @@ async function startRolling() {
     for (let count = 0; count < maxRolls; count++) {
         await rollCharacter();
 
-        await new Promise(res => setTimeout(res, 1500));
+        await new Promise(res => setTimeout(res, 2000));
 
-        loopThroughRolls(wishedCharacters, extraCharacters);
+        checkRoll(wishedCharacters, extraCharacters);
 
         await new Promise(res => setTimeout(res, 1500));
     }
 }
-
 
 function prepareNextRolls() {
     claimUptime(claimResetMinute);
@@ -229,7 +167,6 @@ function prepareNextRolls() {
     }
 }
 
-cacheClipboardOnce();
 
 startRolling();
 
